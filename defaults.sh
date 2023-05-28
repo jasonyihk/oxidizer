@@ -55,7 +55,7 @@ export OX_BACKUP_PROG=(brew)
 export OX_BACKUP=${HOME}/Documents/backup
 
 # shell backups
-OX_OXIDE[bkox]=${OX_BACKUP}/shell/custom.sh
+OX_OXIDE[bkox]=${OX_BACKUP}/shell/defaults.sh
 # OX_OXIDE[bkvi]=${OX_BACKUP}/shell/.vimrc
 # OX_OXIDE[bkpx]=${OX_BACKUP}/verge.yaml
 
@@ -72,20 +72,20 @@ OX_OXIDE[bkwz]=${OX_BACKUP}/terminal/wezterm.lua
 ##########################################################
 
 # c: clash, v: v2ray
-declare -A OX_PROXY=(
-    [c]=7890
-    [v]=1080
-)
+#declare -A OX_PROXY=(
+#    [c]=7890
+#    [v]=1080
+#)
 
-OX_ELEMENT[cv]="${HOME}/.config/clash-verge/verge.yaml"
-OX_OXIDE[bkcv]="${OX_BACKUP}/app/verge.yaml"
+#OX_ELEMENT[cv]="${HOME}/.config/clash-verge/verge.yaml"
+#OX_OXIDE[bkcv]="${OX_BACKUP}/app/verge.yaml"
 
 ##########################################################
 # select export and import settings
 ##########################################################
 
 # files to be exported to backup folder
-# ox: custom.sh of Oxidizer
+# ox: defaults.sh of Oxidizer
 # rs: cargo's env
 # pu: pueue's config.yml
 # pua: pueue's aliases.yml
@@ -125,7 +125,7 @@ export HOMEBREW_CLEANUP_MAX_AGE_DAYS="7"
 # set the length of key <= 3
 declare -A HOMEBREW_SERVICE=(
     [pu]="pueue"
-    [pg]="postgresql@15"
+    #[pg]="postgresql@15"
     [pd]="podman"
 )
 
@@ -234,12 +234,12 @@ esac
 
 # installer donwloaded path: works for function `brp()`
 # use `which brp` to chech `brp()` in details
-export OX_DOWNLOAD=${HOME}/Desktop
+export OX_DOWNLOAD=${HOME}/Downloads
 export OX_STARTUP=1
 
 startup() {
     # start directory
-    cd ${HOME}/Desktop
+    cd ${HOME}
 }
 
 ##########################################################

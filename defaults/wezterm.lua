@@ -5,29 +5,11 @@ local default_prog = {}
 local set_environment_variables = {}
 
 -- Shell
-if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
-    table.insert( launch_menu, {
-        label = 'PowerShell',
-        args = { 'powershell.exe', '-NoLogo' }
-     } )
-    table.insert( launch_menu, {
-        label = "WSL",
-        args = { "wsl.exe", "--cd", "/home/" }
-     } )
-    default_prog = { 'powershell.exe', '-NoLogo' }
-elseif wezterm.target_triple == 'x86_64-unknown-linux-gnu' then
-    table.insert( launch_menu, {
-        label = 'Bash',
-        args = { 'bash', '-l' }
-     } )
-    default_prog = { 'bash', '-l' }
-else
-    table.insert( launch_menu, {
-        label = 'Zsh',
-        args = { 'zsh', '-l' }
-     } )
-    default_prog = { 'zsh', '-l' }
-end
+table.insert( launch_menu, {
+    label = 'Zsh',
+    args = { 'zsh', '-l' }
+    } )
+default_prog = { 'zsh', '-l' }
 
 -- Title
 function basename( s )
@@ -64,7 +46,7 @@ local config = {
     -- Window
     native_macos_fullscreen_mode = true,
     adjust_window_size_when_changing_font_size = true,
-    window_background_opacity = 0.9,
+    window_background_opacity = 0.95,
     window_padding = {
         left = 5,
         right = 5,
@@ -78,9 +60,10 @@ local config = {
      },
 
     -- Font
+    color_scheme = "Hardcore",
+    --color_scheme = 'Monokai (base16)',
     font = wezterm.font_with_fallback { 'JetBrains Mono' },
-    font_size = 16,
-    freetype_load_target = "Mono",
+    font_size = 14,
 
     -- Tab bar
     enable_tab_bar = true,
@@ -282,8 +265,6 @@ local config = {
         mods = 'LEADER',
         action = 'QuickSelect'
      } },
-
-    color_scheme = 'Monokai (base16)',
 
     inactive_pane_hsb = {
         hue = 1.0,

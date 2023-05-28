@@ -1,39 +1,5 @@
-export OXIDIZER=${OXIDIZER:-"${HOME}/oxidizer"}
+export OXIDIZER=${OXIDIZER:-"${HOME}/Workspace/jasonyihk/oxidizer"}
 printf "📦 Installing Oxidizer\n"
-
-###################################################
-# Install Homebrew
-###################################################
-
-if test ! "$(command -v brew)"; then
-    printf "📦 Homebrew not installed. Installing.\n"
-    if [[ $(uname -s) = "Linux" ]] && [[ $(uname -m) = "aarch64" ]]; then
-        printf "⚠️ Oxidizer doesn't support limited Linux-son-ARM yet."
-        sleep 5
-        exit
-    elif [[ ${BREW_CN} ]]; then
-        /bin/bash -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)"
-    else
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    fi
-fi
-
-printf "⚙️ Adding Custom settings...\n"
-cp -i -v ${OXIDIZER}/defaults.sh ${OXIDIZER}/custom.sh
-
-if [[ $(uname -s) = "Darwin" ]]; then
-    printf "📦 Activating Homebrew on MacOS...\n"
-    if [[ $(uname -m) = "arm64" ]]; then
-        eval "$(/opt/homebrew/bin/brew shellenv)"
-        echo 'export PATH="/opt/homebrew/bin:$PATH"' >>~/.zshrc
-    else
-        eval "$(/usr/local/Homebrew/bin/brew shellenv)"
-    fi
-else
-    printf "📦 Activating Homebrew on Linux...\n"
-    echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>.profile
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-fi
 
 brew tap "homebrew/services"
 brew tap "homebrew/bundle"
@@ -69,20 +35,6 @@ for pkg in $(cat ${OXIDIZER}/defaults/Brewfile.txt); do
 done
 
 ###################################################
-# Install Zap
-###################################################
-
-if [[ $(uname -s) = "Linux" ]]; then
-    printf "📦 Adding Tap linuxbrew/fonts...\n"
-    brew tap "linuxbrew/fonts"
-    printf "📦 Installing Zap to Manage AppImage Packages...\n"
-    curl https://raw.githubusercontent.com/srevinsaju/zap/main/install.sh | bash -s
-else
-    printf "📦 Adding Tap homebrew/cask-fonts...\n"
-    brew tap "homebrew/cask-fonts"
-fi
-
-###################################################
 # Update Shell Settings
 ###################################################
 
@@ -111,39 +63,27 @@ printf "⚙️ Adding Oxidizer into ${OX_SHELL}...\n"
 
 echo "# Oxidizer" >>${OX_SHELL}
 
-if [[ -z ${OXIDIZER} ]]; then
-    OXIDIZER="${HOME}/oxidizer"
-    append_str='export OXIDIZER='"${OXIDIZER}"' && source '"${OXIDIZER}"'/oxidizer.sh'
-else
-    append_str='source '"${OXIDIZER}"'/oxidizer.sh'
-fi
-
+append_str='source '"${OXIDIZER}"'/oxidizer.sh'
 echo "${append_str}" >>"${OX_SHELL}"
 
-printf "⚙️ Adding Custom settings..."
-cp ${OXIDIZER}/defaults.sh ${OXIDIZER}/custom.sh
-
 # load zoxide
-sd ".* OX_STARTUP=.*" "export OX_STARTUP=1" ${OXIDIZER}/custom.sh
+sd ".* OX_STARTUP=.*" "export OX_STARTUP=1" ${OXIDIZER}/defaults.sh
 
 # set path of oxidizer
 sd "source OXIDIZER=.*" "source OXIDIZER=${OXIDIZER}/oxidizer.sh" ${OX_SHELL}
 
 ###################################################
-# Load Plugins
-###################################################
-
-git clone --depth=1 https://github.com/ivaquero/oxplugins-zsh.git
-
-###################################################
 # Editor
 ###################################################
 
-if test ! "$(command -v nvim)"; then
-    printf "⚙️ Using Vim as Default Terminal Editor"
-    export EDITOR="vi"
-else
+if test "$(command -v hx)"; then
+    printf "⚙️ Using Helix as Default Terminal Editor"
     export EDITOR="nvim"
+elif test "$(command -v nvim)"; then
+    printf "⚙️ Using nvim as Default Terminal Editor"
+    export EDITOR="nvim"
+else
+    export EDITOR="vim"
 fi
 
 printf "🎉 Oxidizer installation complete!\n"

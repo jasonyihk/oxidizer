@@ -8,7 +8,7 @@ For a Vim plugin on macOS / Linux, you can write
 OX_OXYGEN[oxpvi]="plugin_path"
 ```
 
-And add the _key of OX_OXYGEN_ into `OX_PLUGINS` object in `custom.sh` like
+And add the _key of OX_OXYGEN_ into `OX_PLUGINS` object in `defaults.sh` like
 
 ```sh
 OX_PLUGINS=(oxp1 oxp2 oxpvi)

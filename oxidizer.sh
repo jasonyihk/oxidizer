@@ -1,4 +1,5 @@
-export OXIDIZER=${OXIDIZER:-"${HOME}/oxidizer"}
+export OXIDIZER=${OXIDIZER:-"${HOME}/Workspace/jasonyihk/oxidizer"}
+export OXIDIZER_PLUGINS=${OXIDIZER_PLUGINS:-"${HOME}/Workspace/jasonyihk/oxplugins-zsh"}
 
 ##########################################################
 # Oxidizer Configuration Files
@@ -8,30 +9,30 @@ export OXIDIZER=${OXIDIZER:-"${HOME}/oxidizer"}
 declare -A OX_OXYGEN=(
     [oxd]=${OXIDIZER}/defaults.sh
     [oxwz]=${OXIDIZER}/defaults/wezterm.lua
-    [oxpx]=${OXIDIZER}/defaults/verge.yaml
-    [oxpm]=${OXIDIZER}/oxplugins-zsh/ox-macos.sh
-    [oxpd]=${OXIDIZER}/oxplugins-zsh/ox-debians.sh
-    [oxpb]=${OXIDIZER}/oxplugins-zsh/ox-brew.sh
-    [oxpg]=${OXIDIZER}/oxplugins-zsh/ox-git.sh
-    [oxpc]=${OXIDIZER}/oxplugins-zsh/ox-conda.sh
-    [oxpbw]=${OXIDIZER}/oxplugins-zsh/ox-bitwarden.sh
-    [oxpcn]=${OXIDIZER}/oxplugins-zsh/ox-conan.sh
-    [oxpct]=${OXIDIZER}/oxplugins-zsh/ox-container.sh
-    [oxpes]=${OXIDIZER}/oxplugins-zsh/ox-espanso.sh
-    [oxphx]=${OXIDIZER}/oxplugins-zsh/ox-helix.sh
-    [oxpjl]=${OXIDIZER}/oxplugins-zsh/ox-julia.sh
-    [oxpjn]=${OXIDIZER}/oxplugins-zsh/ox-jupyter.sh
-    [oxpnj]=${OXIDIZER}/oxplugins-zsh/ox-node.sh
-    [oxppd]=${OXIDIZER}/oxplugins-zsh/ox-podman.sh
-    [oxppu]=${OXIDIZER}/oxplugins-zsh/ox-pueue.sh
-    [oxprs]=${OXIDIZER}/oxplugins-zsh/ox-rust.sh
-    [oxptl]=${OXIDIZER}/oxplugins-zsh/ox-texlive.sh
-    [oxput]=${OXIDIZER}/oxplugins-zsh/ox-utils.sh
-    [oxpvs]=${OXIDIZER}/oxplugins-zsh/ox-vscode.sh
-    [oxpzj]=${OXIDIZER}/oxplugins-zsh/ox-zellij.sh
-    [oxpfm]=${OXIDIZER}/oxplugins-zsh/ox-formats.sh
-    [oxpwr]=${OXIDIZER}/oxplugins-zsh/ox-weather.sh
-    [oxpns]=${OXIDIZER}/oxplugins-zsh/ox-notes.sh
+    #[oxpx]=${OXIDIZER}/defaults/verge.yaml
+    [oxpm]=${OXIDIZER_PLUGINS}/ox-macos.sh
+    [oxpd]=${OXIDIZER_PLUGINS}/ox-debians.sh
+    [oxpb]=${OXIDIZER_PLUGINS}/ox-brew.sh
+    [oxpg]=${OXIDIZER_PLUGINS}/ox-git.sh
+    [oxpc]=${OXIDIZER_PLUGINS}/ox-conda.sh
+    [oxpbw]=${OXIDIZER_PLUGINS}/ox-bitwarden.sh
+    [oxpcn]=${OXIDIZER_PLUGINS}/ox-conan.sh
+    [oxpct]=${OXIDIZER_PLUGINS}/ox-container.sh
+    [oxpes]=${OXIDIZER_PLUGINS}/ox-espanso.sh
+    [oxphx]=${OXIDIZER_PLUGINS}/ox-helix.sh
+    [oxpjl]=${OXIDIZER_PLUGINS}/ox-julia.sh
+    [oxpjn]=${OXIDIZER_PLUGINS}/ox-jupyter.sh
+    [oxpnj]=${OXIDIZER_PLUGINS}/ox-node.sh
+    [oxppd]=${OXIDIZER_PLUGINS}/ox-podman.sh
+    [oxppu]=${OXIDIZER_PLUGINS}/ox-pueue.sh
+    [oxprs]=${OXIDIZER_PLUGINS}/ox-rust.sh
+    [oxptl]=${OXIDIZER_PLUGINS}/ox-texlive.sh
+    [oxput]=${OXIDIZER_PLUGINS}/ox-utils.sh
+    [oxpvs]=${OXIDIZER_PLUGINS}/ox-vscode.sh
+    [oxpzj]=${OXIDIZER_PLUGINS}/ox-zellij.sh
+    [oxpfm]=${OXIDIZER_PLUGINS}/ox-formats.sh
+    [oxpwr]=${OXIDIZER_PLUGINS}/ox-weather.sh
+    [oxpns]=${OXIDIZER_PLUGINS}/ox-notes.sh
 )
 
 ##########################################################
@@ -39,9 +40,9 @@ declare -A OX_OXYGEN=(
 ##########################################################
 
 declare -A OX_ELEMENT=(
-    [ox]=${OXIDIZER}/custom.sh
+    [ox]=${OXIDIZER}/defaults.sh
     [vi]=${HOME}/.vimrc
-    [px]=${HOME}/.config/clash-verge/verge.yaml
+    #[px]=${HOME}/.config/clash-verge/verge.yaml
 )
 
 declare -A OX_OXIDE
@@ -168,12 +169,12 @@ upox() {
     git fetch origin master
     git reset --hard origin/master
 
-    if [ ! -d ${OXIDIZER}/oxplugins-zsh ]; then
+    if [ ! -d ${OXIDIZER_PLUGINS} ]; then
         echo "\n\nCloning Oxidizer Plugins...\n"
         git clone --depth=1 https://github.com/ivaquero/oxplugins-zsh.git
     else
         echo "\n\nUpdating Oxidizer Plugins...\n"
-        cd ${OXIDIZER}/oxplugins-zsh
+        cd ${OXIDIZER_PLUGINS}
         git fetch origin main
         git reset --hard origin/main
     fi
